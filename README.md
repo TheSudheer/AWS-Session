@@ -32,7 +32,7 @@ Make sure the following tools are installed:
 ### **Step 2: Clone the Project**
 Clone the project repository from GitHub:
 ```bash
-git clone https://github.com/verma-kunal/AWS-Session.git
+git clone https://github.com/TheSudheer/AWS-Session.git
 cd AWS-Session
 ```
 
@@ -97,7 +97,7 @@ If you plan to deploy the application on AWS, follow these additional steps:
 
 3. **Clone the Project on EC2**:
    ```bash
-   git clone https://github.com/verma-kunal/AWS-Session.git
+   git clone https://github.com/TheSudheer/AWS-Session.git
    cd AWS-Session
    ```
 
