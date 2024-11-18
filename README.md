@@ -1,72 +1,127 @@
-# Deploying a Node Js Application on AWS EC2
+To freshly install and run your project, follow these steps from scratch:
 
-### Testing the project locally
+---
 
-1. Clone this project
-```
+### **Step 1: Prerequisites**
+Make sure the following tools are installed:
+1. **Node.js and npm**  
+   Install them using the NodeSource repository:
+   ```bash
+   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+   sudo apt install -y nodejs
+   ```
+   Verify installation:
+   ```bash
+   node -v
+   npm -v
+   ```
+
+2. **Git**  
+   Install Git:
+   ```bash
+   sudo apt update
+   sudo apt install -y git
+   ```
+   Verify installation:
+   ```bash
+   git --version
+   ```
+
+---
+
+### **Step 2: Clone the Project**
+Clone the project repository from GitHub:
+```bash
 git clone https://github.com/verma-kunal/AWS-Session.git
+cd AWS-Session
 ```
-2. Setup the following environment variables - `(.env)` file
+
+---
+
+### **Step 3: Set Up Environment Variables**
+Create a `.env` file in the project root and add the required variables:
+```bash
+nano .env
 ```
-DOMAIN= ""
+Add the following content (replace placeholders with actual values if needed):
+```env
+DOMAIN=""
 PORT=3000
 STATIC_DIR="./client"
-
 PUBLISHABLE_KEY=""
 SECRET_KEY=""
 ```
-3. Initialise and start the project
-```
+Save and exit the editor.
+
+---
+
+### **Step 4: Install Dependencies**
+Install project dependencies using npm:
+```bash
 npm install
+```
+
+---
+
+### **Step 5: Start the Application**
+Start the application:
+```bash
 npm run start
 ```
 
-### Set up an AWS EC2 instance
-
-1. Create an IAM user & login to your AWS Console
-    - Access Type - Password
-    - Permissions - Admin
-2. Create an EC2 instance
-    - Select an OS image - Ubuntu
-    - Create a new key pair & download `.pem` file
-    - Instance type - t2.micro
-3. Connecting to the instance using ssh
-```
-ssh -i instance.pem ubunutu@<IP_ADDRESS>
+This will run the app using `node`. If you’re in development mode and want hot-reloading, use:
+```bash
+npm run devStart
 ```
 
-### Configuring Ubuntu on remote VM
+---
 
-1. Updating the outdated packages and dependencies
-```
-sudo apt update
-```
-3. Install Git - [Guide by DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-22-04) 
-4. Configure Node.js and `npm` - [Guide by DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-22-04)
+### **Step 6: Access the Application**
+1. The app will run on `http://localhost:3000`.
+2. Open your browser and navigate to the above URL.
 
-### Deploying the project on AWS
+---
 
-1. Clone this project in the remote VM
-```
-git clone https://github.com/verma-kunal/AWS-Session.git
-```
-2. Setup the following environment variables - `(.env)` file
-```
-DOMAIN= ""
-PORT=3000
-STATIC_DIR="./client"
+### **Step 7: Optional – Deployment on AWS EC2**
+If you plan to deploy the application on AWS, follow these additional steps:
 
-PUBLISHABLE_KEY=""
-SECRET_KEY=""
-```
-> For this project, we'll have to set up an [Elastic IP Address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) for our EC2 & that would be our `DOMAIN`
+1. **Set Up an EC2 Instance**:
+   - Launch an Ubuntu EC2 instance.
+   - Connect to the instance via SSH:
+     ```bash
+     ssh -i your-key.pem ubuntu@<EC2_IP_ADDRESS>
+     ```
 
-3. Initialise and start the project
-```
-npm install
-npm run start
-```
+2. **Install Node.js, npm, and Git on EC2**:
+   Repeat the steps to install Node.js, npm, and Git on the instance.
 
-> NOTE - We will have to edit the **inbound rules** in the security group of our EC2, in order to allow traffic from our particular port
+3. **Clone the Project on EC2**:
+   ```bash
+   git clone https://github.com/verma-kunal/AWS-Session.git
+   cd AWS-Session
+   ```
 
-### Project is deployed on AWS 🎉
+4. **Set Up Environment Variables**:
+   Create a `.env` file in the EC2 instance with the same content as Step 3.
+
+5. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+
+6. **Start the Application**:
+   ```bash
+   npm run start
+   ```
+
+7. **Update Security Group**:
+   - Go to the AWS EC2 dashboard.
+   - Edit the **Inbound Rules** of the instance's security group to allow traffic on port `3000`.
+
+8. **Access the App**:
+   Use your EC2 public IP or Elastic IP:
+   ```
+   http://<EC2_PUBLIC_IP>:3000
+   ```
+
+
