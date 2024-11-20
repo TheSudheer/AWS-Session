@@ -1,0 +1,43 @@
+# Stage 1: Build the application
+FROM node:18-alpine AS build
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Install dependencies
+COPY package*.json ./
+
+# Install production dependencies only and build the app
+RUN npm install --production
+
+# Copy the rest of the application code, excluding unnecessary files
+COPY . .
+
+# Remove any unnecessary files (like tests or docs)
+RUN rm -rf /usr/src/app/tests /usr/src/app/docs
+
+# Stage 2: Create the production image
+FROM node:18-alpine
+
+# Set environment variables for runtime
+ENV DOMAIN="http://localhost:3000" \
+    PORT=3000 \
+    STATIC_DIR="./client" \
+    PUBLISHABLE_KEY="pk_test_51L5AsSSCC8JVWfvgEtfJkzHMTh7Z5PLY5m1yhR379sJgwAVZEe13NaiG33wsHSyHnPJMjTNOosiPk6AeMI8q0ims0049IKffiu" \
+    SECRET_KEY="sk_test_51L5AsSSCC8JVWfvgxpyZvQyBRRkHmGBkdyIa94vPD3Zs71qbHGrnSPlrJOIWiR74fbcn1A85yESCFnrrp3aX0Oz900JaunHrhe"
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Copy only the necessary files from the build stage to the production stage
+COPY --from=build /usr/src/app ./
+
+# Clean npm cache to reduce image size
+RUN npm cache clean --force
+
+# Expose the app port
+EXPOSE 3000
+
+# Command to start the app, listening on 0.0.0.0 to allow external access
+CMD ["node", "server.js"]
+
