@@ -1,4 +1,10 @@
-To freshly install and run your project, follow these steps from scratch:
+# Project Setup and Installation Guide
+
+**Note:** This project was originally forked from **verma-kunal** and later modified/improved to better suit my requirements and preferences.
+
+---
+
+## To freshly install and run your project, follow these steps from scratch:
 
 ---
 
@@ -123,5 +129,4 @@ If you plan to deploy the application on AWS, follow these additional steps:
    ```
    http://<EC2_PUBLIC_IP>:3000
    ```
-
 
