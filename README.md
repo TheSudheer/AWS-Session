@@ -6,7 +6,6 @@
 
 ## To freshly install and run your project, follow these steps from scratch:
 
----
 
 ### **Step 1: Prerequisites**
 Make sure the following tools are installed:
