@@ -74,7 +74,7 @@ If the configuration test was successful, reload Nginx to apply the changes:
 
    This will apply the new configuration without restarting Nginx completely.
 
-## Step 7: Ensure Nginx Starts on Boot (Optional)
+## Step 6: Ensure Nginx Starts on Boot (Optional)
 
 You may want to configure Nginx to start automatically when the server boots:
 
@@ -83,7 +83,7 @@ You may want to configure Nginx to start automatically when the server boots:
    sudo systemctl enable nginx
    ```
 
-## Step 8: Test the Application
+## Step 7: Test the Application
 
 Now that Nginx is configured, you can test the setup:
 
