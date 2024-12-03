@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-app-deployment
-  labels:
-    app: my-app
 spec:
   replicas: 3
   selector:
@@ -15,31 +13,34 @@ spec:
         app: my-app
     spec:
       containers:
-      - name: my-app
-        image: my_app:latest  # Adjust the image name
-        ports:
-        - containerPort: 3000
-        env:
-        - name: DOMAIN
-          valueFrom:
-            configMapKeyRef:
-              name: my-app-config
-              key: DOMAIN
-        - name: PORT
-          value: "3000"
-        - name: STATIC_DIR
-          valueFrom:
-            configMapKeyRef:
-              name: my-app-config
-              key: STATIC_DIR
-        - name: PUBLISHABLE_KEY
-          valueFrom:
-            secretKeyRef:
-              name: my-app-secret
-              key: PUBLISHABLE_KEY
-        - name: SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: my-app-secret
-              key: SECRET_KEY
+        - name: my-app-container
+          image: my-app-image:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: DOMAIN
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: PORT
+            - name: STATIC_DIR
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: STATIC_DIR
+            - name: PUBLISHABLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-app-secret
+                  key: PUBLISHABLE_KEY
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-app-secret
+                  key: SECRET_KEY
 
