@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-app-container
-          image: my-app-image:latest
+          image: kalki2878/my-app-image:latest
           ports:
             - containerPort: 3000
           env:
