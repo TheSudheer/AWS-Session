@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invalid-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: invalid-app
+  template:
+    metadata:
+      labels:
+        app: invalid-app
+    spec:
+      containers:
+        - name: invalid-container
+          image: kalki2878/my-app-image:v1
+          ports:
+            - containerPort: 3000
+

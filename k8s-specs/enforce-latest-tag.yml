@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: enforce-latest-tag
+spec:
+  validationFailureAction: Enforce # Change from Audit to Enforce
+  background: true
+  rules:
+    - name: require-latest-tag
+      match:
+        resources:
+          kinds:
+            - Deployment
+      validate:
+        message: "Containers must use the 'latest' tag for their image."
+        pattern:
+          spec:
+            template:
+              spec:
+                containers:
+                  - image: "*:latest"
+
